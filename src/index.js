@@ -41,7 +41,7 @@ const swaggerOptions = {
       version: '1.0.0',
       description: readmeContent, // Inject the converted README HTML here
     },
-    servers: [{ url: `http://localhost:${port}` }],
+    servers: [{ url: `${domain}` }],
     components: {
       schemas: {
         Anime: {
