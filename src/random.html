@@ -42,37 +42,40 @@
     document.addEventListener('DOMContentLoaded', async () => {
       const animeInfoDiv = document.getElementById('anime-info');
 
-      // Generate a random ID (adjust range based on your database)
-      const randomId = Math.floor(Math.random() * 19311) + 1; // Replace 19311 with your max ID
-      const apiUrl = `/api/animes/?id=${randomId}`;
+      // Function to fetch a random anime
+      const fetchAnime = async () => {
+        const randomId = Math.floor(Math.random() * 19311) + 1; // Replace 19311 with your max ID
+        const apiUrl = `/api/animes/?id=${randomId}`;
 
-      try {
-        const response = await fetch(apiUrl);
-        if (!response.ok) throw new Error('Anime not found');
+        try {
+          const response = await fetch(apiUrl);
+          if (!response.ok) throw new Error('Anime not found');
 
-        const anime = await response.json();
+          const anime = await response.json();
 
-        animeInfoDiv.innerHTML = `
-          <div class="card mx-auto" style="width: 18rem;">
-            <img src="${anime.img_url}" class="card-img-top" alt="${anime.title}">
-            <div class="card-body">
-              <h5 class="card-title">${anime.title}</h5>
-              <p><strong>ID:</strong> ${randomId}</p>
-              <p>${anime.synopsis || 'No synopsis available.'}</p>
-              <p><strong>Genre:</strong> ${anime.genre || 'N/A'}</p>
-              <p><strong>Episodes:</strong> ${anime.episodes || 'N/A'}</p>
-              <p><strong>Score:</strong> ${anime.score || 'N/A'}</p>
-              <a href="${anime.link}" target="_blank" class="btn btn-primary">More Info</a>
+          animeInfoDiv.innerHTML = `
+            <div class="card mx-auto" style="width: 18rem;">
+              <img src="${anime.img_url}" class="card-img-top" alt="${anime.title}">
+              <div class="card-body">
+                <h5 class="card-title">${anime.title}</h5>
+                <p><strong>ID:</strong> ${randomId}</p>
+                <p>${anime.synopsis || 'No synopsis available.'}</p>
+                <p><strong>Genre:</strong> ${anime.genre || 'N/A'}</p>
+                <p><strong>Episodes:</strong> ${anime.episodes || 'N/A'}</p>
+                <p><strong>Score:</strong> ${anime.score || 'N/A'}</p>
+                <a href="${anime.link}" target="_blank" class="btn btn-primary">More Info</a>
+              </div>
             </div>
-          </div>
-        `;
-      } catch (error) {
-        animeInfoDiv.innerHTML = `
-          <div class="alert alert-danger" role="alert">
-            No anime found or an error occurred: ${error.message}
-          </div>
-        `;
-      }
+          `;
+        } catch (error) {
+          // Refresh the page if anime not found or another error occurs
+          console.error('Error fetching anime:', error.message);
+          location.reload();
+        }
+      };
+
+      // Call the fetchAnime function
+      await fetchAnime();
     });
   </script>
 </body>
