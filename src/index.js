@@ -170,7 +170,7 @@ app.get('/swagger.json', (req, res) => {
 app.use(
   '/scalar',
   apiReference({
-    theme: 'mars',
+    theme: 'elysiajs',
     /*
       otros temas disponibles:
       default: 'Default',
