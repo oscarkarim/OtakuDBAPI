@@ -13,6 +13,7 @@ dotenv.config();
 
 const app = express();
 const port = process.env.PORT || 3000;
+const domain = process.env.RAILWAY_PUBLIC_DOMAIN || `http://localhost:${port}`;
 
 // Middleware
 app.use(express.json());
@@ -203,9 +204,9 @@ app.get('/random', function(req, res) {
 
 // Start Server
 app.listen(port, () => {
-  console.log(`Server running on http://localhost:${port}`);
-  console.log(`mostrar anime random en http://localhost:${port}/random`);
-  console.log(`Swagger UI: http://localhost:${port}/api-docs`);
-  console.log(`Redoc: http://localhost:${port}/redoc`);
-  console.log(`Scalar: http://localhost:${port}/scalar`);
+  console.log(`Server running on ${domain}`);
+  console.log(`mostrar anime random en ${domain}/random`);
+  console.log(`Swagger UI: ${domain}/api-docs`);
+  console.log(`Redoc: ${domain}/redoc`);
+  console.log(`Scalar: ${domain}/scalar`);
 });
